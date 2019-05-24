@@ -1,17 +1,18 @@
 function main () {
   var sheetId = id.getSheetId();
-  db.init(sheetId, 'App');
+  db.init(sheetId, 'Sites');
   
-  var siteList = getSiteList();
-  siteList.forEach(function (site, i) {
-    var row = i + 2; // 1スタートにする & headerの分1行たす
+  var sites = getSiteList();
+  var data = [];
+  sites.forEach(function (site) {
     var storedModified = site.LastModified;
     var LastModified = crawler.getHeaderContent(site.url, 'Last-Modified');
+    data.push([LastModified]);
     if (isUpdated(LastModified, storedModified)) {
       slack.push('<' + site.url + ' | ' + site.name + '>' + ' updated on ' + LastModified);
     };
-    db.save(LastModified, row, 3);
   });
+  db.save(data, 2, 3, sites.length, 1);
 };
 
 var getSiteList = function () {

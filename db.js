@@ -19,11 +19,7 @@ db.save = function (data, row, col, numRows, numCols) {
   if (!isset(this.sheet)) return false;
   if (!isset(numRows)) numRows = 1;
   if (!isset(numCols)) numCols = 1;
-  if (numRows === 1 && numCols === 1) {
-    return this.sheet.getRange(row, col, numRows, numCols).setValue(data);
-  } else {
-    return this.sheet.getRange(row, col, numRows, numCols).setValues(data);
-  }
+  return this.sheet.getRange(row, col, numRows, numCols).setValues(data);
 };
 
 db.load = function (row, col, numRows, numCols) {
