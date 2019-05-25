@@ -7,5 +7,5 @@ crawler.getResponseHeader = function (url) {
 
 crawler.getHeaderContent = function (url, proparty) {
   var header = this.getResponseHeader(url);
-  return header[proparty];
+  return header[proparty] !== undefined ? header[proparty] : '';
 };
